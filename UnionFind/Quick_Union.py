@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-class Quick_Find(object):
+class Quick_Union(object):
     def __init__(self, N):
         self.id = [i for i in range(int(N))]
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-class Weighted_QU(object):
+class Weighted_QU_Path_Compression(object):
     def __init__(self, N):
         self.id = [i for i in range(int(N))]
         self.size = [1 for i in range(int(N))]
@@ -9,6 +9,7 @@ class Weighted_QU(object):
     def root(self, p):
         p = int(p)
         while not self.id[p] == p:
+            self.id[p] = self.id[self.id[p]]
             p = self.id[p]
         return p
 
