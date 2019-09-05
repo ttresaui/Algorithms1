@@ -2,6 +2,8 @@
 # -*- coding:utf-8 -*-
 
 from Weighted_QU_Path_Compression import Weighted_QU_Path_Compression
+from random import choice
+
 
 class Percolation(object):
 
@@ -26,14 +28,16 @@ class Percolation(object):
         if col > 1:
             leftsite = self.index(row, col) - 1
             sitesindex.append(leftsite)
-        elif col < self.N:
+
+        if col < self.N:
             rightsite = self.index(row, col) + 1
             sitesindex.append(rightsite)
 
         if row > 1:
             upsite = self.index(row, col) - self.N
             sitesindex.append(upsite)
-        elif row < self.N:
+
+        if row < self.N:
             downsite = self.index(row, col) + self.N
             sitesindex.append(downsite)
         return sitesindex
@@ -81,6 +85,5 @@ if __name__ == '__main__':
     print(Percolation.numberOfOpenSites())
     print(Percolation.index(3,8))
     print(Percolation.row_col(27))
-
 
 

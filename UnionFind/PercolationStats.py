@@ -18,9 +18,7 @@ class PercolationStats(object):
         while not Per.percolates():
             open_index = choice([index for index, value in enumerate(Per.isopen) if not value])
             row, col = Per.row_col(open_index)
-            print(row, col)
             Per.open(row, col)
-            print(Per.percolates())
         return Per.numberOfOpenSites()
 
     def Ttrials(self):
@@ -40,5 +38,5 @@ class PercolationStats(object):
         return (self.mean() + 1.96 * self.stddev() / np.sqrt(self.trials))
 
 if __name__ == '__main__':
-    PercolationStats = PercolationStats(10, 100)
+    PercolationStats = PercolationStats(100, 10)
     print('mean: %s' % PercolationStats.mean())
