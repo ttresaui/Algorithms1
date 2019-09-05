@@ -15,36 +15,43 @@ class Percolation(object):
         row, col = int(row), int(col)
         return int(self.N * (row - 1) + col - 1)
 
+    def row_col(self, index):
+        row = int(index)//int(self.N) + 1
+        col = int(index)%int(self.N) + 1
+        return row, col
+
     def nearbysites(self, row, col):
         row, col = int(row), int(col)
         sitesindex = []
         if col > 1:
-            leftsite = index(row, col) - 1
+            leftsite = self.index(row, col) - 1
             sitesindex.append(leftsite)
         elif col < self.N:
-            rightsite = index(row, col) + 1
+            rightsite = self.index(row, col) + 1
             sitesindex.append(rightsite)
-        elif row > 1:
-            upsite = index(row, col) - self.N
+
+        if row > 1:
+            upsite = self.index(row, col) - self.N
             sitesindex.append(upsite)
         elif row < self.N:
-            downsite = index(row, col) + self.N
+            downsite = self.index(row, col) + self.N
             sitesindex.append(downsite)
         return sitesindex
 
     def open(self, row, col):
         index = self.index(row, col)
-        self.isopen[index] = True
-        if row == 1:
-            self.WQUPC.Union(index, self.N**2)
-        elif row == self.N:
-            self.WQUPC.Union(index, self.N**2 + 1)
-        for nearindex in self.nearbysites(row, col):
-            if self.isOpen(nearindex):
-                self.WQUPC.Union(index, nearindex)
+        if not self.isopen[index]:
+            self.isopen[index] = True
+            if row == 1:
+                self.WQUPC.union(index, self.N**2)
+            elif row == self.N:
+                self.WQUPC.union(index, self.N**2 + 1)
+            for nearindex in self.nearbysites(row, col):
+                if self.isOpen(nearindex):
+                    self.WQUPC.union(index, nearindex)
 
-    def isOpen(self, row, col):
-        return self.isopen[self.index(row, col)]
+    def isOpen(self, index):
+        return self.isopen[index]
 
     def isFull(self, row, col):
         return self.WQUPC.connected(self.index(row, col), self.N**2)
@@ -58,7 +65,22 @@ class Percolation(object):
 
 if __name__ == '__main__':
     Percolation = Percolation(10)
-    print(Percolation.WQUPC.id)
-    print(Percolation.isopen)
+    Percolation.open(1,5)
+    Percolation.open(2, 5)
+    Percolation.open(3, 5)
+    Percolation.open(4, 5)
+    Percolation.open(5, 5)
+    Percolation.open(6, 5)
+    Percolation.open(7, 5)
+    Percolation.open(8, 5)
+    Percolation.open(9, 5)
+    Percolation.open(9, 6)
+    Percolation.open(10, 6)
+    print(Percolation.isFull(9, 5))
+    print(Percolation.percolates())
+    print(Percolation.numberOfOpenSites())
+    print(Percolation.index(3,8))
+    print(Percolation.row_col(27))
+
 
 
