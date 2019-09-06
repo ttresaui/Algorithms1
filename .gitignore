@@ -1,4 +1,7 @@
+#mac
 .DS_store
 .idea/
+
+#python
 *.pyc
 
